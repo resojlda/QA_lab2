@@ -3,12 +3,110 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.res</groupId>
-  <artifactId>lab1b</artifactId>
+  <artifactId>QA_Lab2</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>lab1b</name>
   <url>http://maven.apache.org</url>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <check>
+            <haltOnFailure>true</haltOnFailure>
+            <branchRate>85</branchRate>
+            <lineRate>85</lineRate>
+            <regexes>
+              <regex>
+                <pattern>com.university.Representation.*</pattern>
+                <branchRate>0</branchRate>
+                <lineRate>0</lineRate>
+              </regex>
+              <regex>
+                <pattern>com.university.Domain.StudentDAOImpl</pattern>
+                <branchRate>0</branchRate>
+                <lineRate>0</lineRate>
+              </regex>
+              <regex>
+                <pattern>com.university.Domain.StudentMapper</pattern>
+                <branchRate>0</branchRate>
+                <lineRate>0</lineRate>
+              </regex>
+              <regex>
+                <pattern>com.university.Domain.Student</pattern>
+                <branchRate>50</branchRate>
+                <lineRate>50</lineRate>
+              </regex>
+              <regex>
+                <pattern>com.university.Configuration.*</pattern>
+                <branchRate>0</branchRate>
+                <lineRate>0</lineRate>
+              </regex>
+            </regexes>
+          </check>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.17</version>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <configuration>
+              <checkstyleRules>
+                <module name="Checker">
+                  <module name="TreeWalker">
+                    <module name="MethodLength">
+                      <property name="tokens" value="METHOD_DEF"/>
+                      <property name="max" value="50"/>
+                      <property name="countEmpty" value="false"/>
+                    </module>
+                  </module>
+                </module>
+              </checkstyleRules>
+              <encoding>UTF-8</encoding>
+              <consoleOutput>true</consoleOutput>
+              <failsOnError>true</failsOnError>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.5</version>
+        <configuration>
+          <threshold>High</threshold>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -51,12 +149,6 @@
       <groupId>com.microsoft.sqlserver</groupId>
       <artifactId>mssql-jdbc</artifactId>
       <version>RELEASE</version>
-    </dependency>
-    <dependency>
-      <groupId>com.res</groupId>
-      <artifactId>lab1b</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>test</scope>
     </dependency>
 
     <dependency>

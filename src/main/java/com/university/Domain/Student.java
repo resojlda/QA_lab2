@@ -1,6 +1,8 @@
 package com.university.Domain;
 
 
+import java.util.Objects;
+
 public class Student {
     private Integer id;
     private String name;
@@ -78,14 +80,20 @@ public class Student {
 
     @Override
     public boolean equals(Object object) {
-        if (object != null) {
+        if (object == null) return false;
+        if (getClass() == object.getClass()) {
             Student student = (Student) object;
             if (!this.age.equals(student.getAge()) ||
-                !this.name.equals(student.getName()) ||
-                !this.surname.equals(student.getSurname()) ||
-                !this.id.equals(student.getId())) return false;
+                    !this.name.equals(student.getName()) ||
+                    !this.surname.equals(student.getSurname()) ||
+                    !this.id.equals(student.getId())) return false;
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.surname, this.age);
     }
 }
